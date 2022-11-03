@@ -10,9 +10,8 @@ from PIL import Image,ImageColor,ImageDraw,ImageFont,ImageOps
 
 def setup_detector(route):
     detector = hub.load(route).signatures['default'] # Cargar el modelo
-
-    return detector
-    pass
+    #cam = cam.capture()
+    return detector#, cam
 
 def captureCamera(cam): # Capturar el frame de la camera
     ret, frame = cam.read() # Obtener el frame de la camara
@@ -119,9 +118,11 @@ def runDetector(detector, path):
     
     imageWithBoxes = cv2.resize(imageWithBoxes, (1366, 768))
     imname = (path.split("/")[-1]).split(".")[0]
-    cv2.imwrite(("C:/Users/46756494/Documents/wheelliam/processed-images/"+"processed_"+imname+".jpg"), imageWithBoxes)
+    impath = "C:/Users/46756494/Documents/wheelliam/processed-images/"+"processed_"+imname+".jpg"
+    cv2.imwrite((impath), imageWithBoxes)
     cv2.imshow("imboxes", imageWithBoxes)
     cv2.waitKey(0)
+    return impath
     # valid_classes = ["Man", "Person", "Human face", "Human head", "Jeans", "Footwear"]
     # print(str(result["detection_scores"][0]))
     # print(str(result["detection_class_entities"][0]))
@@ -132,7 +133,8 @@ def runDetector(detector, path):
     #   else: side = "R"      
     #   return True, side
     # return False, None
-route = "C:/Users/46756494/Documents/wheelliam/model"
-detector = hub.load(route).signatures['default']
-path = "C:/Users/46756494/Documents/wheelliam/images/menem.jpg"  
-runDetector(detector, path)
+
+# route = "C:/Users/46756494/Documents/wheelliam/model"
+# detector = hub.load(route).signatures['default']
+# path = "C:/Users/46756494/Documents/wheelliam/images/menem.jpg"  
+# runDetector(detector, path)
